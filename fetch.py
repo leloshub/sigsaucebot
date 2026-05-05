@@ -1,3 +1,5 @@
+import re
+
 with open('ssb.py', 'r', encoding='utf-8') as f:
     content = f.read()
 
@@ -11,4 +13,4 @@ content = content.replace('\u2013', '-')
 with open('ssb.py', 'w', encoding='utf-8') as f:
     f.write(content)
 
-print('Quotes fixed successfully')
+print('Fixed successfully')
