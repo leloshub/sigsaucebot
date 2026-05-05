@@ -1,5 +1,8 @@
 requests
 pandas
-schedule
 numpy
+schedule
 flask
+gunicorn
+python-dateutil
+pytz
