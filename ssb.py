@@ -11,8 +11,8 @@ from flask import Flask
 
 # CONFIG
 
-BOT_TOKEN = os.environ.get(TELEGRAM_BOT_TOKEN, )
-CHAT_ID   = os.environ.get(TELEGRAM_CHAT_ID, )
+BOT_TOKEN = os.environ.get(“TELEGRAM_BOT_TOKEN”, “”)
+CHAT_ID   = os.environ.get(“TELEGRAM_CHAT_ID”, “”)
 PORT      = int(os.environ.get(“PORT”, 5000))
 
 CHECK_INTERVAL_MINUTES = 15
