@@ -1,4 +1,3 @@
 import urllib.request
-url = "https://pastebin.com/raw/X7Yhr1BQ"
-urllib.request.urlretrieve(url, "ssb.py")
-print("Done")
+url = "https://raw.githubusercontent.com/leloshub/sigsaucebot/main/ssb.py"
+print("Bot starting directly...")
