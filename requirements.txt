@@ -1,0 +1,5 @@
+requests
+pandas
+schedule
+numpy
+flask
