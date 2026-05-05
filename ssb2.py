@@ -779,6 +779,13 @@ def _safe_scan():
             _scan_lock.release()
     else:
         send_telegram("⚠️ A scan is already running — please wait.")
+def self_ping():
+    while True:
+        try:
+            requests.get("https://sigsaucebot.onrender.com")
+        except:
+            pass
+        time.sleep(270)
 
 # ── Startup ────────────────────────────────────────────────────────
 def startup():
@@ -808,6 +815,7 @@ if __name__ == "__main__":
     print(f"[{now()}] Web server started on port {PORT}")
 
     threading.Thread(target=poll_commands, daemon=True).start()
+    threading.Thread(target=self_ping, daemon=True).start()
 
     startup()
 
