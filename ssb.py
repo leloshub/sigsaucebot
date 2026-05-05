@@ -46,11 +46,11 @@ HISTORY_FILE = “history.json”
 MAX_HISTORY  = 10
 
 def load_config():
-try:
-with open(CONFIG_FILE) as f:
-return json.load(f)
-except Exception:
-return {“balance”: None, “risk_pct”: 1.0}
+    try:
+        with. open(CONFIG_FILE) as f:
+            return json.load(f)
+    except Exception:
+        return {“balance”: None, “risk_pct”: 1.0}
 
 def save_config(cfg):
 try:
