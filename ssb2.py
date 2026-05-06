@@ -44,8 +44,6 @@ INSTRUMENTS = {
 # Timeframe definitions — (yahoo_interval, yahoo_range, display_label, weight)
 # Higher weight = more influence on the final signal
 TIMEFRAMES = {
-    "1m":  ("1m",  "1d",  "1 Min",  1),
-    "5m":  ("5m",  "5d",  "5 Min",  1),
     "15m": ("15m", "5d",  "15 Min", 2),
     "30m": ("30m", "1mo", "30 Min", 2),
     "1h":  ("1h",  "1mo", "1 Hour", 3),
