@@ -453,7 +453,8 @@ def analyse_mtf(symbol: str, meta: dict):
         confidence = avg_sell
     else:
         print(f"[{now()}] {symbol}: No MTF signal (BUY {avg_buy}% / SELL {avg_sell}%)")
-        return None
+        return {"symbol": symbol, "label": meta["label"], "direction": "HOLD", "confidence": 0, "avg_buy": avg_buy, "avg_sell": avg_sell, "no_signal": True}
+
 
     top_reasons = []
     for tf_key in ["1d", "4h", "1h", "30m", "15m"]:
@@ -577,26 +578,31 @@ def format_message(s: dict, meta: dict) -> str:
 def run_scan():
     print(f"\n[{now()}] ── Starting MTF scan ──")
     sent = 0
-
+    score_summary = []
     for symbol, meta in INSTRUMENTS.items():
-        print(f"[{now()}] Analysing {symbol} across 7 timeframes…")
+        print("[" + now() + "] Analysing " + symbol + "...")
         result = analyse_mtf(symbol, meta)
-        if result:
+        if result and not result.get("no_signal"):
             msg = format_message(result, meta)
             send_telegram(msg)
             append_history(result)
             sent += 1
+            score_summary.append(meta["label"] + ": " + result["direction"] + " " + str(result["confidence"]) + "% SIGNAL")
             time.sleep(1.5)
+        elif result:
+            score_summary.append(meta["label"] + ": BUY " + str(result.get("avg_buy", 0)) + "% / SELL " + str(result.get("avg_sell", 0)) + "%")
+        else:
+            score_summary.append(meta["label"] + ": no data")
 
-    if sent == 0:
-        print(f"[{now()}] No signals above {MIN_CONFIDENCE}% this scan.")
-    else:
-        send_telegram(
-            f"✅ Scan done — <b>{sent} signal{'s' if sent > 1 else ''}</b> sent. "
-            f"Next scan in {CHECK_INTERVAL_MINUTES} mins."
-        )
-
-    print(f"[{now()}] ── Scan complete ──\n")
+    send_telegram(
+        "Scan complete\n"
+        "========================\n" +
+        "\n".join(score_summary) +
+        "\n========================\n"
+        "Signals: " + str(sent) + " | Threshold: " + str(MIN_CONFIDENCE) + "%\n"
+        "Next scan in " + str(CHECK_INTERVAL_MINUTES) + " mins"
+    )
+    print("[" + now() + "] Scan complete.\n")
 
 # ── Telegram command listener (long-polling) ──────────────────────
 _scan_lock      = threading.Lock()
