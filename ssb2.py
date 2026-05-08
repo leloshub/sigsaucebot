@@ -1,7 +1,7 @@
 """
 SigSauceBot Telegram Signal Bot — MULTI-TIMEFRAME EDITION
 ==========================================================
-✅ Scans every 15 minutes
+✅ Scans every 30 minutes
 ✅ 7 timeframes per instrument: 1m · 5m · 15m · 30m · 1h · 4h
 ✅ Weighted confluence engine — higher TFs carry more weight
 ✅ 8 indicators: RSI · EMA · BB · MACD · ADX · Stoch · Candles · S&R
@@ -25,8 +25,8 @@ BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT_ID   = os.environ["TELEGRAM_CHAT_ID"]
 PORT      = int(os.environ.get("PORT", 5000))
 
-CHECK_INTERVAL_MINUTES = 10
-MIN_CONFIDENCE         = 60   # weighted confidence threshold to fire
+CHECK_INTERVAL_MINUTES = 30
+MIN_CONFIDENCE         = 40   # weighted confidence threshold to fire
 
 INSTRUMENTS = {
     "XAUUSD": {"yahoo": "GC=F",      "label": "🥇 Gold",       "pip": 0.01,   "type": "metal",  "unit": "oz"},
@@ -799,7 +799,7 @@ def startup():
 XAUUSD · XAGUSD · NAS100 · SPX500
 EURUSD · GBPUSD · USDJPY · GBPJPY · EURGBP · NDXUSD
 
-📊 <b>Timeframes:</b> 1m · 5m · 15m · 30m · 1h · 4h · 1d
+📊 <b>Timeframes:</b> 5m · 15m · 30m · 1h · 4h · 1d
 🎯 Min weighted confidence: <b>{MIN_CONFIDENCE}%</b>
 🔍 8 Indicators per timeframe
 ⏱ Auto-scan every <b>{CHECK_INTERVAL_MINUTES} minutes</b>
